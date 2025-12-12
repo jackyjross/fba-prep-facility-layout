@@ -6,28 +6,32 @@
     <title>FBA Prep Facility - 50K Sq Ft Layout</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; padding: 20px; line-height: 1.6; }
         .container { max-width: 1800px; margin: 0 auto; }
-        h1 { font-size: 36px; margin-bottom: 10px; background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .subtitle { font-size: 16px; opacity: 0.7; margin-bottom: 30px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .stat-card { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; padding: 20px; transition: all 0.3s ease; }
-        .stat-card:hover { border-color: #00d4ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3); }
-        .stat-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-        .stat-value { font-size: 28px; font-weight: 800; color: #00d4ff; }
-        .stat-detail { font-size: 11px; opacity: 0.6; margin-top: 8px; }
-        .facility-container { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
-        .facility-layout { display: grid; grid-template-columns: 45% 30% 25%; gap: 20px; min-height: 600px; }
-        .zone { background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 20px; transition: all 0.3s ease; cursor: pointer; }
-        .zone:hover { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
-        .zone-header { font-size: 18px; font-weight: 700; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid; display: flex; justify-content: space-between; align-items: center; }
-        .zone-sqft { font-size: 14px; opacity: 0.7; font-weight: 400; }
-        .reserve-zone { border-color: #3498db; background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(41, 128, 185, 0.05) 100%); }
-        .reserve-zone .zone-header { color: #3498db; border-color: #3498db; }
-        .prep-zone { border-color: #e74c3c; background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 0%, rgba(192, 57, 43, 0.05) 100%); }
-        .prep-zone .zone-header { color: #e74c3c; border-color: #e74c3c; }
-        .logistics-zone { border-color: #27ae60; background: linear-gradient(135deg, rgba(39, 174, 96, 0.15) 0%, rgba(34, 153, 84, 0.05) 100%); }
-        .logistics-zone .zone-header { color: #27ae60; border-color: #27ae60; }
+        h1 { font-size: 42px; margin-bottom: 12px; background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; font-weight: 900; }
+        .subtitle { font-size: 17px; opacity: 0.8; margin-bottom: 35px; font-weight: 500; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 35px; }
+        .stat-card { background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 153, 255, 0.04) 100%); border: 2px solid rgba(0, 212, 255, 0.25); border-radius: 14px; padding: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #00d4ff, #0099ff); opacity: 0; transition: opacity 0.3s ease; }
+        .stat-card:hover { border-color: #00d4ff; transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4); }
+        .stat-card:hover::before { opacity: 1; }
+        .stat-label { font-size: 11px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600; }
+        .stat-value { font-size: 32px; font-weight: 900; color: #00d4ff; line-height: 1.1; }
+        .stat-detail { font-size: 11px; opacity: 0.65; margin-top: 10px; font-weight: 500; }
+        .facility-container { background: rgba(255, 255, 255, 0.03); border: 2px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 35px; margin-bottom: 35px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); }
+        .facility-layout { display: grid; grid-template-columns: 45% 30% 25%; gap: 24px; min-height: 600px; }
+        .zone { background: rgba(255, 255, 255, 0.05); border: 2.5px solid; border-radius: 16px; padding: 24px; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden; }
+        .zone::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: currentColor; opacity: 0; transition: opacity 0.3s ease; }
+        .zone:hover { transform: scale(1.03); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); }
+        .zone:hover::before { opacity: 0.8; }
+        .zone-header { font-size: 19px; font-weight: 800; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2.5px solid; display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.5px; }
+        .zone-sqft { font-size: 13px; opacity: 0.75; font-weight: 500; }
+        .reserve-zone { border-color: #3498db; background: linear-gradient(135deg, rgba(52, 152, 219, 0.18) 0%, rgba(41, 128, 185, 0.08) 100%); color: #3498db; }
+        .reserve-zone .zone-header { color: #5dade2; border-color: rgba(52, 152, 219, 0.5); }
+        .prep-zone { border-color: #e74c3c; background: linear-gradient(135deg, rgba(231, 76, 60, 0.18) 0%, rgba(192, 57, 43, 0.08) 100%); color: #e74c3c; }
+        .prep-zone .zone-header { color: #ec7063; border-color: rgba(231, 76, 60, 0.5); }
+        .logistics-zone { border-color: #27ae60; background: linear-gradient(135deg, rgba(39, 174, 96, 0.18) 0%, rgba(34, 153, 84, 0.08) 100%); color: #27ae60; }
+        .logistics-zone .zone-header { color: #58d68d; border-color: rgba(39, 174, 96, 0.5); }
         .aisles-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
         .aisle { background: rgba(52, 152, 219, 0.3); border: 1px solid #3498db; border-radius: 6px; padding: 10px 5px; text-align: center; font-size: 11px; font-weight: 600; transition: all 0.2s ease; }
         .aisle:hover { background: rgba(52, 152, 219, 0.5); transform: scale(1.05); }
@@ -46,30 +50,34 @@
         .dock-title { font-size: 13px; font-weight: 700; color: #27ae60; margin-bottom: 8px; }
         .dock-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
         .dock { background: rgba(39, 174, 96, 0.3); border: 1px solid #27ae60; padding: 6px 4px; text-align: center; font-size: 10px; border-radius: 4px; font-weight: 600; }
-        .process-flow { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
-        .process-flow h2 { font-size: 24px; margin-bottom: 20px; color: #00d4ff; }
-        .flow-steps { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
-        .flow-step { flex: 1; min-width: 130px; background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 15px 10px; text-align: center; transition: all 0.3s ease; }
-        .flow-step:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); }
-        .flow-arrow { font-size: 20px; color: rgba(255, 255, 255, 0.3); font-weight: 700; }
-        .flow-step-name { font-size: 11px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .flow-step-metric { font-size: 18px; font-weight: 800; margin-bottom: 5px; }
-        .flow-step-detail { font-size: 9px; opacity: 0.7; }
-        .capacity-overview { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
-        .capacity-overview h2 { font-size: 24px; margin-bottom: 20px; color: #00d4ff; }
-        .capacity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .capacity-card { background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 20px; }
-        .capacity-card h3 { font-size: 16px; margin-bottom: 15px; }
-        .capacity-metric { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .capacity-label { font-size: 12px; opacity: 0.7; }
-        .capacity-value { font-size: 14px; font-weight: 700; }
+        .process-flow { background: rgba(255, 255, 255, 0.03); border: 2px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 35px; margin-bottom: 35px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); }
+        .process-flow h2 { font-size: 26px; margin-bottom: 25px; color: #00d4ff; font-weight: 800; letter-spacing: -0.3px; }
+        .flow-steps { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .flow-step { flex: 1; min-width: 140px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%); border: 2.5px solid; border-radius: 14px; padding: 18px 12px; text-align: center; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .flow-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: currentColor; }
+        .flow-step:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); }
+        .flow-arrow { font-size: 24px; color: rgba(0, 212, 255, 0.4); font-weight: 800; }
+        .flow-step-name { font-size: 11px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; }
+        .flow-step-metric { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+        .flow-step-detail { font-size: 10px; opacity: 0.75; font-weight: 500; }
+        .capacity-overview { background: rgba(255, 255, 255, 0.03); border: 2px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 35px; margin-bottom: 35px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); }
+        .capacity-overview h2 { font-size: 26px; margin-bottom: 25px; color: #00d4ff; font-weight: 800; letter-spacing: -0.3px; }
+        .capacity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .capacity-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%); border: 2.5px solid; border-radius: 16px; padding: 26px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .capacity-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: currentColor; }
+        .capacity-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); }
+        .capacity-card h3 { font-size: 18px; margin-bottom: 18px; font-weight: 800; letter-spacing: 0.3px; }
+        .capacity-metric { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.12); align-items: baseline; }
+        .capacity-metric:last-of-type { border-bottom: none; }
+        .capacity-label { font-size: 12px; opacity: 0.75; font-weight: 500; }
+        .capacity-value { font-size: 15px; font-weight: 800; }
         .info-box { margin-top: 15px; padding: 10px; border-radius: 6px; }
 
         /* Navigation */
-        .nav-bar { display: flex; gap: 15px; margin-bottom: 30px; }
-        .nav-btn { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 212, 255, 0.3); color: #00d4ff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-block; }
-        .nav-btn:hover { border-color: #00d4ff; background: rgba(0, 212, 255, 0.1); transform: translateY(-2px); }
-        .nav-btn.active { border-color: #00d4ff; background: rgba(0, 212, 255, 0.15); }
+        .nav-bar { display: flex; gap: 12px; margin-bottom: 35px; }
+        .nav-btn { background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 153, 255, 0.05) 100%); border: 2px solid rgba(0, 212, 255, 0.3); color: #00d4ff; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; font-size: 14px; letter-spacing: 0.3px; }
+        .nav-btn:hover { border-color: #00d4ff; background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 153, 255, 0.1) 100%); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 212, 255, 0.25); }
+        .nav-btn.active { border-color: #00d4ff; background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 153, 255, 0.15) 100%); box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3); }
     </style>
 </head>
 <body>
