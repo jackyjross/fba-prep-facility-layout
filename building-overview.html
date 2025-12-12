@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPGio Building Overview - FBA Prep Facility Location</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
+        .container { max-width: 1800px; margin: 0 auto; }
+
+        /* Header */
+        h1 { font-size: 36px; margin-bottom: 10px; background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .subtitle { font-size: 16px; opacity: 0.7; margin-bottom: 30px; }
+
+        /* Navigation */
+        .nav-bar { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav-btn { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 212, 255, 0.3); color: #00d4ff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-block; }
+        .nav-btn:hover { border-color: #00d4ff; background: rgba(0, 212, 255, 0.1); transform: translateY(-2px); }
+        .nav-btn.active { border-color: #00d4ff; background: rgba(0, 212, 255, 0.15); }
+
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; padding: 20px; transition: all 0.3s ease; }
+        .stat-card:hover { border-color: #00d4ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3); }
+        .stat-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .stat-value { font-size: 28px; font-weight: 800; color: #00d4ff; }
+        .stat-detail { font-size: 11px; opacity: 0.6; margin-top: 8px; }
+
+        /* Building Layout */
+        .building-container { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 40px; margin-bottom: 30px; }
+        .building-container h2 { font-size: 24px; margin-bottom: 25px; color: #00d4ff; }
+
+        .floor-plan { position: relative; max-width: 1200px; margin: 0 auto; }
+        .building-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 3px; min-height: 700px; background: rgba(255, 255, 255, 0.2); padding: 3px; border-radius: 12px; }
+
+        .section { position: relative; border-radius: 8px; padding: 30px; transition: all 0.3s ease; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .section:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); }
+
+        .section-a { background: linear-gradient(135deg, rgba(231, 76, 60, 0.3) 0%, rgba(192, 57, 43, 0.15) 100%); border: 3px solid #e74c3c; }
+        .section-b { background: linear-gradient(135deg, rgba(39, 174, 96, 0.4) 0%, rgba(34, 153, 84, 0.2) 100%); border: 4px solid #27ae60; box-shadow: 0 0 40px rgba(39, 174, 96, 0.4); }
+        .section-c { background: linear-gradient(135deg, rgba(52, 152, 219, 0.3) 0%, rgba(41, 128, 185, 0.15) 100%); border: 3px solid #3498db; grid-column: 1; grid-row: 2; }
+        .section-d { background: linear-gradient(135deg, rgba(243, 156, 18, 0.3) 0%, rgba(211, 84, 0, 0.15) 100%); border: 3px solid #f39c12; grid-column: 2; grid-row: 2; }
+
+        .section-label { font-size: 48px; font-weight: 900; margin-bottom: 15px; opacity: 0.9; }
+        .section-name { font-size: 18px; font-weight: 700; margin-bottom: 8px; opacity: 0.9; }
+        .section-type { font-size: 14px; opacity: 0.7; margin-bottom: 20px; }
+        .section-sqft { font-size: 32px; font-weight: 800; color: #00d4ff; margin-bottom: 8px; }
+        .section-detail { font-size: 12px; opacity: 0.7; }
+
+        .fba-badge { background: linear-gradient(135deg, #00d4ff, #0099ff); color: #000; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px; animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.8); }
+        }
+
+        .door-info { margin-top: 15px; padding: 12px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; }
+        .door-count { font-size: 24px; font-weight: 800; color: #27ae60; }
+
+        /* Compass */
+        .compass { position: absolute; top: 20px; left: 20px; width: 60px; height: 60px; }
+        .compass svg { width: 100%; height: 100%; }
+
+        /* Info Cards */
+        .info-section { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
+        .info-section h2 { font-size: 24px; margin-bottom: 20px; color: #00d4ff; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .info-card { background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 25px; }
+        .info-card h3 { font-size: 18px; margin-bottom: 15px; font-weight: 700; }
+        .info-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .info-label { font-size: 13px; opacity: 0.7; }
+        .info-value { font-size: 14px; font-weight: 700; }
+
+        .cta-section { text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 255, 0.05) 100%); border-radius: 16px; border: 2px solid rgba(0, 212, 255, 0.3); }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #00d4ff, #0099ff); color: #000; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-size: 18px; font-weight: 800; margin-top: 20px; transition: all 0.3s ease; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 212, 255, 0.5); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <h1>CPGio Building Overview</h1>
+        <p class="subtitle">1150 N Swift Rd, Addison, IL 60101 | Total Interactive Solutions</p>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <a href="building-overview.html" class="nav-btn active">Building Overview</a>
+            <a href="index.html" class="nav-btn">Section B - Detailed Layout</a>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Building</div>
+                <div class="stat-value">~140,000</div>
+                <div class="stat-detail">sq ft (estimated)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">FBA Prep Section</div>
+                <div class="stat-value">50,000</div>
+                <div class="stat-detail">sq ft (Section B)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Building Sections</div>
+                <div class="stat-value">4</div>
+                <div class="stat-detail">A, B, C, D zones</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Loading Doors</div>
+                <div class="stat-value">6</div>
+                <div class="stat-detail">Section B access</div>
+            </div>
+        </div>
+
+        <!-- Building Layout -->
+        <div class="building-container">
+            <h2>Building Floor Plan - Section Allocation</h2>
+
+            <div class="floor-plan">
+                <!-- Compass -->
+                <div class="compass">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                        <polygon points="50,15 55,45 50,40 45,45" fill="#00d4ff"/>
+                        <polygon points="50,85 55,55 50,60 45,55" fill="rgba(255,255,255,0.3)"/>
+                        <text x="50" y="12" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">N</text>
+                        <text x="50" y="95" text-anchor="middle" fill="#fff" font-size="10" opacity="0.5">S</text>
+                        <text x="90" y="55" text-anchor="middle" fill="#fff" font-size="10" opacity="0.5">E</text>
+                        <text x="10" y="55" text-anchor="middle" fill="#fff" font-size="10" opacity="0.5">W</text>
+                    </svg>
+                </div>
+
+                <div class="building-grid">
+                    <!-- Section A - CPGio Office -->
+                    <div class="section section-a">
+                        <div class="section-label" style="color: #e74c3c;">A</div>
+                        <div class="section-name">CPGio Office</div>
+                        <div class="section-type">Administrative & Operations</div>
+                        <div class="section-sqft">~30,000 sq ft</div>
+                        <div class="section-detail">Main entrance • Conference rooms • Workstations</div>
+                    </div>
+
+                    <!-- Section B - FBA Prep Facility (HIGHLIGHTED) -->
+                    <div class="section section-b">
+                        <div class="section-label" style="color: #27ae60;">B</div>
+                        <div class="section-name">FBA Prep Facility</div>
+                        <div class="section-type">Hyper Fox Office Space</div>
+                        <div class="section-sqft">50,000 sq ft</div>
+                        <div class="section-detail">Primary operations zone</div>
+                        <div class="fba-badge">🎯 FBA Prep Facility</div>
+                        <div class="door-info">
+                            <div class="door-count">6 Dock Doors</div>
+                            <div class="section-detail">Amazon FBA, Dock 33-35+</div>
+                        </div>
+                    </div>
+
+                    <!-- Section C - CPGio Warehouse -->
+                    <div class="section section-c">
+                        <div class="section-label" style="color: #3498db;">C</div>
+                        <div class="section-name">CPGio Warehouse</div>
+                        <div class="section-type">Storage & Distribution</div>
+                        <div class="section-sqft">~35,000 sq ft</div>
+                        <div class="section-detail">Multiple dock doors • Gray doors 21-20-19</div>
+                    </div>
+
+                    <!-- Section D - CPGio Warehouse -->
+                    <div class="section section-d">
+                        <div class="section-label" style="color: #f39c12;">D</div>
+                        <div class="section-name">CPGio Warehouse</div>
+                        <div class="section-type">Storage & Operations</div>
+                        <div class="section-sqft">~25,000 sq ft</div>
+                        <div class="section-detail">South access • Gray doors 1-2-3-4</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section B Details -->
+        <div class="info-section">
+            <h2>Section B - FBA Prep Facility Specifications</h2>
+            <div class="info-grid">
+                <div class="info-card" style="border-color: #27ae60;">
+                    <h3 style="color: #27ae60;">Physical Specifications</h3>
+                    <div class="info-item">
+                        <span class="info-label">Total Square Footage</span>
+                        <span class="info-value">50,000 sq ft</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Loading Dock Doors</span>
+                        <span class="info-value">6 doors</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Door Designation</span>
+                        <span class="info-value">DOOR 1 + Dock 33-35+</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Current Use</span>
+                        <span class="info-value">Hyper Fox Office</span>
+                    </div>
+                    <div class="info-item" style="border-bottom: none;">
+                        <span class="info-label">Building Position</span>
+                        <span class="info-value">Northeast quadrant</span>
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-color: #3498db;">
+                    <h3 style="color: #3498db;">Operational Capacity</h3>
+                    <div class="info-item">
+                        <span class="info-label">Reserve Storage</span>
+                        <span class="info-value">1,250 pallet positions</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Prep Stations</span>
+                        <span class="info-value">16 active lines</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Weekly Throughput</span>
+                        <span class="info-value">80 pallets/week</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Staging Capacity</span>
+                        <span class="info-value">200 pallet positions</span>
+                    </div>
+                    <div class="info-item" style="border-bottom: none;">
+                        <span class="info-label">Layout Design</span>
+                        <span class="info-value">U-Shaped FIFO Flow</span>
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-color: #e74c3c;">
+                    <h3 style="color: #e74c3c;">Zone Allocation (Section B)</h3>
+                    <div class="info-item">
+                        <span class="info-label">Reserve Storage Zone</span>
+                        <span class="info-value">22,500 sq ft (45%)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Prep Operations Zone</span>
+                        <span class="info-value">15,000 sq ft (30%)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Logistics Zone</span>
+                        <span class="info-value">12,500 sq ft (25%)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Specialized Storage</span>
+                        <span class="info-value">Temp Control + Hazmat</span>
+                    </div>
+                    <div class="info-item" style="border-bottom: none;">
+                        <span class="info-label">Access Points</span>
+                        <span class="info-value">6 dock doors total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2 style="font-size: 32px; margin-bottom: 15px; color: #00d4ff;">Explore the Detailed Facility Layout</h2>
+            <p style="font-size: 16px; opacity: 0.8; margin-bottom: 10px;">
+                See the complete U-shaped flow design with reserve storage, prep stations, and logistics zones
+            </p>
+            <a href="index.html" class="cta-btn">View Detailed Section B Layout →</a>
+        </div>
+    </div>
+
+    <script>
+        // Add hover effect to sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('click', function() {
+                const sectionLabel = this.querySelector('.section-label').textContent;
+                if (sectionLabel === 'B') {
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

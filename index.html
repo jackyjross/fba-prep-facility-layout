@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FBA Prep Facility - 30K Sq Ft Layout</title>
+    <title>FBA Prep Facility - 50K Sq Ft Layout</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
@@ -17,7 +17,7 @@
         .stat-value { font-size: 28px; font-weight: 800; color: #00d4ff; }
         .stat-detail { font-size: 11px; opacity: 0.6; margin-top: 8px; }
         .facility-container { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
-        .facility-layout { display: grid; grid-template-columns: 40% 35% 25%; gap: 20px; min-height: 600px; }
+        .facility-layout { display: grid; grid-template-columns: 45% 30% 25%; gap: 20px; min-height: 600px; }
         .zone { background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 20px; transition: all 0.3s ease; cursor: pointer; }
         .zone:hover { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
         .zone-header { font-size: 18px; font-weight: 700; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid; display: flex; justify-content: space-between; align-items: center; }
@@ -28,11 +28,13 @@
         .prep-zone .zone-header { color: #e74c3c; border-color: #e74c3c; }
         .logistics-zone { border-color: #27ae60; background: linear-gradient(135deg, rgba(39, 174, 96, 0.15) 0%, rgba(34, 153, 84, 0.05) 100%); }
         .logistics-zone .zone-header { color: #27ae60; border-color: #27ae60; }
-        .aisles-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 10px; }
+        .aisles-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
         .aisle { background: rgba(52, 152, 219, 0.3); border: 1px solid #3498db; border-radius: 6px; padding: 10px 5px; text-align: center; font-size: 11px; font-weight: 600; transition: all 0.2s ease; }
-        .aisle:hover { background: rgba(52, 152, 219, 0.5); transform: scale(1.1); }
+        .aisle:hover { background: rgba(52, 152, 219, 0.5); transform: scale(1.05); }
         .aisle-hazmat { background: rgba(255, 107, 0, 0.3); border-color: #ff6b00; color: #ff6b00; }
         .aisle-candles { background: rgba(52, 152, 219, 0.4); border: 2px solid #3498db; }
+        .capacity-bar { background: rgba(255, 255, 255, 0.1); border-radius: 4px; height: 6px; margin-top: 8px; overflow: hidden; }
+        .capacity-fill { background: linear-gradient(90deg, #00d4ff, #0099ff); height: 100%; transition: width 0.3s ease; }
         .prep-section { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 8px; padding: 12px; margin: 8px 0; }
         .prep-section-title { font-size: 13px; font-weight: 700; color: #e74c3c; margin-bottom: 8px; }
         .prep-stations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
@@ -42,7 +44,7 @@
         .staging-capacity { font-size: 18px; font-weight: 700; color: #e74c3c; }
         .dock-section { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(39, 174, 96, 0.3); border-radius: 8px; padding: 12px; margin: 8px 0; }
         .dock-title { font-size: 13px; font-weight: 700; color: #27ae60; margin-bottom: 8px; }
-        .dock-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+        .dock-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
         .dock { background: rgba(39, 174, 96, 0.3); border: 1px solid #27ae60; padding: 6px 4px; text-align: center; font-size: 10px; border-radius: 4px; font-weight: 600; }
         .process-flow { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
         .process-flow h2 { font-size: 24px; margin-bottom: 20px; color: #00d4ff; }
@@ -53,136 +55,184 @@
         .flow-step-name { font-size: 11px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
         .flow-step-metric { font-size: 18px; font-weight: 800; margin-bottom: 5px; }
         .flow-step-detail { font-size: 9px; opacity: 0.7; }
-        .prep-breakdown { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(231, 76, 60, 0.3); border-radius: 16px; padding: 30px; }
-        .prep-breakdown h2 { font-size: 24px; margin-bottom: 20px; color: #e74c3c; }
-        .prep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .prep-card { background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 20px; }
-        .prep-card h3 { font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .prep-detail-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .prep-detail-label { font-size: 12px; opacity: 0.7; }
-        .prep-detail-value { font-size: 12px; font-weight: 700; }
+        .capacity-overview { background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; margin-bottom: 30px; }
+        .capacity-overview h2 { font-size: 24px; margin-bottom: 20px; color: #00d4ff; }
+        .capacity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .capacity-card { background: rgba(255, 255, 255, 0.05); border: 2px solid; border-radius: 12px; padding: 20px; }
+        .capacity-card h3 { font-size: 16px; margin-bottom: 15px; }
+        .capacity-metric { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .capacity-label { font-size: 12px; opacity: 0.7; }
+        .capacity-value { font-size: 14px; font-weight: 700; }
         .info-box { margin-top: 15px; padding: 10px; border-radius: 6px; }
+
+        /* Navigation */
+        .nav-bar { display: flex; gap: 15px; margin-bottom: 30px; }
+        .nav-btn { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 212, 255, 0.3); color: #00d4ff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-block; }
+        .nav-btn:hover { border-color: #00d4ff; background: rgba(0, 212, 255, 0.1); transform: translateY(-2px); }
+        .nav-btn.active { border-color: #00d4ff; background: rgba(0, 212, 255, 0.15); }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>FBA Prep Facility - 30,000 Sq Ft</h1>
-        <p class="subtitle">384 Pallets | 8 Weeks Coverage | 100% FBA Sleeve Prep Required</p>
+        <h1>FBA Prep Facility - 50,000 Sq Ft</h1>
+        <p class="subtitle">Section B | CPGio Building | 6 Dock Doors | U-Shaped Layout</p>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <a href="building-overview.html" class="nav-btn">← Building Overview</a>
+            <a href="index.html" class="nav-btn active">Section B - Detailed Layout</a>
+        </div>
 
         <!-- Stats Grid -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-label">Total Facility</div>
-                <div class="stat-value">30,000</div>
+                <div class="stat-value">50,000</div>
                 <div class="stat-detail">sq ft</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Current Inventory</div>
-                <div class="stat-value">384</div>
-                <div class="stat-detail">pallets on hand</div>
+                <div class="stat-label">Storage Capacity</div>
+                <div class="stat-value">1,250</div>
+                <div class="stat-detail">pallet positions</div>
+                <div class="capacity-bar">
+                    <div class="capacity-fill" style="width: 0%;"></div>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Weekly Prep</div>
-                <div class="stat-value">48</div>
+                <div class="stat-label">Prep Capacity</div>
+                <div class="stat-value">80</div>
                 <div class="stat-detail">pallets/week</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Prep Stations</div>
-                <div class="stat-value">12</div>
+                <div class="stat-value">16</div>
                 <div class="stat-detail">active lines</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Storage Capacity</div>
-                <div class="stat-value">750</div>
-                <div class="stat-detail">pallet positions</div>
+                <div class="stat-label">Dock Doors</div>
+                <div class="stat-value">6</div>
+                <div class="stat-detail">3 receiving + 3 shipping</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Utilization</div>
-                <div class="stat-value">51%</div>
-                <div class="stat-detail">current usage</div>
+                <div class="stat-label">Staging Capacity</div>
+                <div class="stat-value">200</div>
+                <div class="stat-detail">pallet positions</div>
             </div>
         </div>
 
         <!-- Facility Layout -->
         <div class="facility-container">
-            <h2 style="font-size: 24px; margin-bottom: 20px; color: #00d4ff;">Facility Layout</h2>
+            <h2 style="font-size: 24px; margin-bottom: 20px; color: #00d4ff;">Facility Layout - U-Shaped Flow Design</h2>
             <div class="facility-layout">
                 <!-- Reserve Storage -->
                 <div class="zone reserve-zone">
                     <div class="zone-header">
                         <span>RESERVE STORAGE</span>
-                        <span class="zone-sqft">12,000 sq ft</span>
+                        <span class="zone-sqft">22,500 sq ft (45%)</span>
                     </div>
                     <div>
                         <p style="font-size: 12px; margin-bottom: 10px; opacity: 0.8;">
-                            10 Aisles × 15 Deep × 5 High = 750 positions
+                            15 Aisles × 17 Deep × 5 High = 1,250 pallet positions
                         </p>
                         <div class="aisles-grid">
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A1</div>
-                                <div style="font-size: 10px; margin-top: 4px;">42 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">56%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">High-Turn</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A2</div>
-                                <div style="font-size: 10px; margin-top: 4px;">39 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">52%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">High-Turn</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A3</div>
-                                <div style="font-size: 10px; margin-top: 4px;">41 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">55%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">High-Turn</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A4</div>
-                                <div style="font-size: 10px; margin-top: 4px;">38 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">51%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A5</div>
-                                <div style="font-size: 10px; margin-top: 4px;">40 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">53%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A6</div>
-                                <div style="font-size: 10px; margin-top: 4px;">37 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">49%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A7</div>
-                                <div style="font-size: 10px; margin-top: 4px;">43 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">57%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
                             </div>
                             <div class="aisle">
                                 <div style="font-size: 13px; font-weight: 700;">A8</div>
-                                <div style="font-size: 10px; margin-top: 4px;">36 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">48%</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
+                            </div>
+                            <div class="aisle">
+                                <div style="font-size: 13px; font-weight: 700;">A9</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
+                            </div>
+                            <div class="aisle">
+                                <div style="font-size: 13px; font-weight: 700;">A10</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
+                            </div>
+                            <div class="aisle">
+                                <div style="font-size: 13px; font-weight: 700;">A11</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
+                            </div>
+                            <div class="aisle">
+                                <div style="font-size: 13px; font-weight: 700;">A12</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Standard</div>
                             </div>
                             <div class="aisle aisle-candles">
-                                <div style="font-size: 13px; font-weight: 700;">A9</div>
-                                <div style="font-size: 10px; margin-top: 4px;">41 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">55%</div>
+                                <div style="font-size: 13px; font-weight: 700;">A13</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Temp Ctrl</div>
+                            </div>
+                            <div class="aisle aisle-candles">
+                                <div style="font-size: 13px; font-weight: 700;">A14</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 85</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Temp Ctrl</div>
                             </div>
                             <div class="aisle aisle-hazmat">
-                                <div style="font-size: 13px; font-weight: 700;">A10</div>
-                                <div style="font-size: 10px; margin-top: 4px;">27 PLT</div>
-                                <div style="font-size: 9px; opacity: 0.7;">36%</div>
+                                <div style="font-size: 13px; font-weight: 700;">A15</div>
+                                <div style="font-size: 10px; margin-top: 4px;">CAP 45</div>
+                                <div style="font-size: 9px; opacity: 0.7;">Hazmat</div>
                             </div>
                         </div>
                         <div class="info-box" style="background: rgba(255, 107, 0, 0.1); border: 1px solid #ff6b00;">
                             <div style="font-size: 11px; font-weight: 700; color: #ff6b00; margin-bottom: 5px;">
-                                ⚠️ A10 Hazmat: 10ft Isolation
+                                ⚠️ A15 Hazmat Zone: 10ft Isolation
                             </div>
                             <div style="font-size: 10px; opacity: 0.8;">
-                                27 pallets | Aerosols & Flammables
+                                45 positions | Aerosols & Flammables
                             </div>
                         </div>
                         <div class="info-box" style="background: rgba(52, 152, 219, 0.1); border: 1px solid #3498db;">
                             <div style="font-size: 11px; font-weight: 700; color: #3498db; margin-bottom: 5px;">
-                                ❄️ A9 Temperature Control
+                                ❄️ A13-A14 Temperature Control
                             </div>
                             <div style="font-size: 10px; opacity: 0.8;">
-                                Level 1 only - Candle storage
+                                Level 1 only - Candle storage | 170 positions
+                            </div>
+                        </div>
+                        <div class="info-box" style="background: rgba(0, 212, 255, 0.1); border: 1px solid #00d4ff;">
+                            <div style="font-size: 11px; font-weight: 700; color: #00d4ff; margin-bottom: 5px;">
+                                🚀 A1-A3 High-Velocity Zone
+                            </div>
+                            <div style="font-size: 10px; opacity: 0.8;">
+                                Near shipping | Fast-moving SKUs | 255 positions
                             </div>
                         </div>
                     </div>
@@ -192,13 +242,13 @@
                 <div class="zone prep-zone">
                     <div class="zone-header">
                         <span>PREP OPERATIONS</span>
-                        <span class="zone-sqft">10,000 sq ft</span>
+                        <span class="zone-sqft">15,000 sq ft (30%)</span>
                     </div>
 
                     <div class="prep-section">
-                        <div class="prep-section-title">FBA SLEEVE PREP (6 Stations)</div>
+                        <div class="prep-section-title">FBA SLEEVE PREP (8 Stations)</div>
                         <div style="font-size: 11px; margin-bottom: 8px; opacity: 0.8;">
-                            40 pallets/week | 100% of volume
+                            Capacity: 60 pallets/week | Primary operation
                         </div>
                         <div class="prep-stations">
                             <div class="station">SLV 1</div>
@@ -207,26 +257,30 @@
                             <div class="station">SLV 4</div>
                             <div class="station">SLV 5</div>
                             <div class="station">SLV 6</div>
+                            <div class="station">SLV 7</div>
+                            <div class="station">SLV 8</div>
                         </div>
                     </div>
 
                     <div class="prep-section">
-                        <div class="prep-section-title">BUNDLE/VARIETY (4 Stations)</div>
+                        <div class="prep-section-title">BUNDLE/VARIETY (6 Stations)</div>
                         <div style="font-size: 11px; margin-bottom: 8px; opacity: 0.8;">
-                            8 pallets/week | Subset SKUs
+                            Capacity: 15 pallets/week | Configurable SKUs
                         </div>
                         <div class="prep-stations">
                             <div class="station">BDL 1</div>
                             <div class="station">BDL 2</div>
                             <div class="station">BDL 3</div>
                             <div class="station">BDL 4</div>
+                            <div class="station">BDL 5</div>
+                            <div class="station">BDL 6</div>
                         </div>
                     </div>
 
                     <div class="prep-section">
                         <div class="prep-section-title">STANDARD PREP (2 Stations)</div>
                         <div style="font-size: 11px; margin-bottom: 8px; opacity: 0.8;">
-                            Low-complexity SKUs
+                            Capacity: 5 pallets/week | Low-complexity
                         </div>
                         <div class="prep-stations">
                             <div class="station">STD 1</div>
@@ -236,14 +290,14 @@
 
                     <div class="staging-area">
                         <div class="staging-title">PRE-PREP STAGING</div>
-                        <div class="staging-capacity">70 positions</div>
-                        <div style="font-size: 10px; opacity: 0.6; margin-top: 4px;">Inbound queue</div>
+                        <div class="staging-capacity">120 positions</div>
+                        <div style="font-size: 10px; opacity: 0.6; margin-top: 4px;">Inbound queue from reserve</div>
                     </div>
 
                     <div class="staging-area">
                         <div class="staging-title">POST-PREP STAGING</div>
-                        <div class="staging-capacity">50 positions</div>
-                        <div style="font-size: 10px; opacity: 0.6; margin-top: 4px;">FBA-ready</div>
+                        <div class="staging-capacity">80 positions</div>
+                        <div style="font-size: 10px; opacity: 0.6; margin-top: 4px;">FBA-ready consolidation</div>
                     </div>
                 </div>
 
@@ -251,50 +305,63 @@
                 <div class="zone logistics-zone">
                     <div class="zone-header">
                         <span>LOGISTICS</span>
-                        <span class="zone-sqft">4,000 sq ft</span>
+                        <span class="zone-sqft">12,500 sq ft (25%)</span>
                     </div>
 
                     <div class="dock-section">
-                        <div class="dock-title">RECEIVING (7 Doors)</div>
+                        <div class="dock-title">RECEIVING (3 Doors)</div>
                         <div class="dock-grid">
-                            <div class="dock">D29</div>
-                            <div class="dock">D30</div>
-                            <div class="dock">D31</div>
-                            <div class="dock">D32</div>
-                            <div class="dock">D33</div>
-                            <div class="dock">D34</div>
-                            <div class="dock">D35</div>
+                            <div class="dock">Dock 33</div>
+                            <div class="dock">Dock 34</div>
+                            <div class="dock">Dock 35</div>
                         </div>
                         <div style="font-size: 10px; margin-top: 8px; opacity: 0.7;">
-                            12.8 trucks/week inbound
+                            Amazon FBA inbound • Section B north end
+                        </div>
+                    </div>
+
+                    <div style="margin: 15px 0; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                        <div style="font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #95a5a6;">
+                            RECEIVING STAGING
+                        </div>
+                        <div style="font-size: 20px; font-weight: 800; color: #95a5a6;">
+                            100 positions
+                        </div>
+                        <div style="font-size: 10px; opacity: 0.7; margin-top: 4px;">
+                            Inspection & check-in area
                         </div>
                     </div>
 
                     <div class="dock-section">
-                        <div class="dock-title">SHIPPING (7 Doors)</div>
+                        <div class="dock-title">SHIPPING (3 Doors)</div>
                         <div class="dock-grid">
-                            <div class="dock">D1</div>
-                            <div class="dock">D2</div>
-                            <div class="dock">D3</div>
-                            <div class="dock">D4</div>
-                            <div class="dock">D5</div>
-                            <div class="dock">D6</div>
-                            <div class="dock">D7</div>
+                            <div class="dock">Door 1</div>
+                            <div class="dock">Door 2</div>
+                            <div class="dock">Door 3</div>
                         </div>
                         <div style="font-size: 10px; margin-top: 8px; opacity: 0.7;">
-                            FBA consolidation zone
+                            FBA outbound • Section B south end
                         </div>
                     </div>
 
                     <div style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                        <div style="font-size: 12px; font-weight: 700; margin-bottom: 8px;">
-                            STAGING CAPACITY
+                        <div style="font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #27ae60;">
+                            SHIPPING STAGING
                         </div>
                         <div style="font-size: 20px; font-weight: 800; color: #27ae60;">
-                            120 positions
+                            100 positions
                         </div>
                         <div style="font-size: 10px; opacity: 0.7; margin-top: 4px;">
-                            Ground + racking
+                            FBA shipment assembly
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="background: rgba(241, 196, 15, 0.1); border: 1px solid #f1c40f;">
+                        <div style="font-size: 11px; font-weight: 700; color: #f1c40f; margin-bottom: 5px;">
+                            📦 U-Shaped Flow Design
+                        </div>
+                        <div style="font-size: 10px; opacity: 0.8;">
+                            Receiving (Dock 33-35) on north end, Shipping (Door 1-3) on south end to prevent cross-traffic
                         </div>
                     </div>
                 </div>
@@ -303,149 +370,139 @@
 
         <!-- Process Flow -->
         <div class="process-flow">
-            <h2>Material Flow - FIFO with Mandatory Prep</h2>
+            <h2>Material Flow - U-Shaped FIFO Design</h2>
             <div class="flow-steps">
                 <div class="flow-step" style="border-color: #95a5a6; color: #95a5a6;">
                     <div class="flow-step-name">Receiving</div>
-                    <div class="flow-step-metric">384 PLT</div>
-                    <div class="flow-step-detail">Inbound</div>
+                    <div class="flow-step-metric">3 Doors</div>
+                    <div class="flow-step-detail">Dock 33-35</div>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-step" style="border-color: #3498db; color: #3498db;">
                     <div class="flow-step-name">Reserve</div>
-                    <div class="flow-step-metric">750 CAP</div>
-                    <div class="flow-step-detail">5-high racking</div>
+                    <div class="flow-step-metric">1,250 CAP</div>
+                    <div class="flow-step-detail">15 aisles 5-high</div>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-step" style="border-color: #e74c3c; color: #e74c3c;">
                     <div class="flow-step-name">FBA Sleeve</div>
-                    <div class="flow-step-metric">40 PLT/WK</div>
-                    <div class="flow-step-detail">100% volume</div>
+                    <div class="flow-step-metric">60 PLT/WK</div>
+                    <div class="flow-step-detail">8 stations</div>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-step" style="border-color: #f39c12; color: #f39c12;">
                     <div class="flow-step-name">Bundle</div>
-                    <div class="flow-step-metric">8 PLT/WK</div>
-                    <div class="flow-step-detail">Subset SKUs</div>
+                    <div class="flow-step-metric">15 PLT/WK</div>
+                    <div class="flow-step-detail">6 stations</div>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-step" style="border-color: #9b59b6; color: #9b59b6;">
                     <div class="flow-step-name">Staging</div>
-                    <div class="flow-step-metric">120 POS</div>
-                    <div class="flow-step-detail">Consolidation</div>
+                    <div class="flow-step-metric">200 POS</div>
+                    <div class="flow-step-detail">Pre + Post prep</div>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-step" style="border-color: #27ae60; color: #27ae60;">
                     <div class="flow-step-name">FBA Ship</div>
-                    <div class="flow-step-metric">48 PLT/WK</div>
-                    <div class="flow-step-detail">Outbound</div>
+                    <div class="flow-step-metric">3 Doors</div>
+                    <div class="flow-step-detail">Door 1-3</div>
                 </div>
             </div>
         </div>
 
-        <!-- Prep Breakdown -->
-        <div class="prep-breakdown">
-            <h2>Prep Operations Detail</h2>
-            <div class="prep-grid">
-                <div class="prep-card" style="border-color: #e74c3c;">
-                    <h3 style="color: #e74c3c;">
-                        <span>📦</span> FBA Sleeve Prep
-                    </h3>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Stations</span>
-                        <span class="prep-detail-value">6 Lines</span>
+        <!-- Capacity Overview -->
+        <div class="capacity-overview">
+            <h2>Capacity Planning Overview</h2>
+            <div class="capacity-grid">
+                <div class="capacity-card" style="border-color: #3498db;">
+                    <h3 style="color: #3498db;">Storage Capacity</h3>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Total Pallet Positions</span>
+                        <span class="capacity-value">1,250</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Throughput</span>
-                        <span class="prep-detail-value">40 pallets/week</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">High-Velocity Zone (A1-A3)</span>
+                        <span class="capacity-value">255</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Coverage</span>
-                        <span class="prep-detail-value">100% of volume</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Standard Storage (A4-A12)</span>
+                        <span class="capacity-value">765</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Operations</span>
-                        <span class="prep-detail-value">Break cases, sleeve, re-pallet</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Temperature Control (A13-A14)</span>
+                        <span class="capacity-value">170</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Purpose</span>
-                        <span class="prep-detail-value">Liquid leak prevention</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Hazmat Isolated (A15)</span>
+                        <span class="capacity-value">45</span>
                     </div>
-                    <div class="info-box" style="background: rgba(231, 76, 60, 0.1);">
-                        <div style="font-size: 11px; font-weight: 700; color: #e74c3c;">
-                            PRIMARY BOTTLENECK
-                        </div>
-                        <div style="font-size: 10px; margin-top: 5px; opacity: 0.8;">
-                            All inventory requires FBA sleeve compliance
-                        </div>
+                    <div class="capacity-metric" style="border-bottom: none; padding-top: 15px;">
+                        <span class="capacity-label">Square Footage</span>
+                        <span class="capacity-value">22,500 sq ft</span>
                     </div>
                 </div>
 
-                <div class="prep-card" style="border-color: #f39c12;">
-                    <h3 style="color: #f39c12;">
-                        <span>🎁</span> Bundle/Variety Pack
-                    </h3>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Stations</span>
-                        <span class="prep-detail-value">4 Lines</span>
+                <div class="capacity-card" style="border-color: #e74c3c;">
+                    <h3 style="color: #e74c3c;">Prep Capacity</h3>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Total Throughput</span>
+                        <span class="capacity-value">80 PLT/week</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Throughput</span>
-                        <span class="prep-detail-value">8 pallets/week</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">FBA Sleeve Stations</span>
+                        <span class="capacity-value">8 lines</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Coverage</span>
-                        <span class="prep-detail-value">Subset SKUs</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Bundle Stations</span>
+                        <span class="capacity-value">6 lines</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Operations</span>
-                        <span class="prep-detail-value">Unit breakdown, configuration</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Standard Prep Stations</span>
+                        <span class="capacity-value">2 lines</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Expansion</span>
-                        <span class="prep-detail-value">Can scale to 6 stations</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Pre-Prep Staging</span>
+                        <span class="capacity-value">120 positions</span>
                     </div>
-                    <div class="info-box" style="background: rgba(243, 156, 18, 0.1);">
-                        <div style="font-size: 11px; font-weight: 700; color: #f39c12;">
-                            GROWTH CAPACITY
-                        </div>
-                        <div style="font-size: 10px; margin-top: 5px; opacity: 0.8;">
-                            Narrow scope now, can expand to 30% of volume
-                        </div>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Post-Prep Staging</span>
+                        <span class="capacity-value">80 positions</span>
+                    </div>
+                    <div class="capacity-metric" style="border-bottom: none; padding-top: 15px;">
+                        <span class="capacity-label">Square Footage</span>
+                        <span class="capacity-value">15,000 sq ft</span>
                     </div>
                 </div>
 
-                <div class="prep-card" style="border-color: #3498db;">
-                    <h3 style="color: #3498db;">
-                        <span>✓</span> Standard Prep
-                    </h3>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Stations</span>
-                        <span class="prep-detail-value">2 Lines</span>
+                <div class="capacity-card" style="border-color: #27ae60;">
+                    <h3 style="color: #27ae60;">Logistics Capacity</h3>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Total Dock Doors (Section B)</span>
+                        <span class="capacity-value">6 doors</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Throughput</span>
-                        <span class="prep-detail-value">Low-complexity</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Receiving (Dock 33-35)</span>
+                        <span class="capacity-value">3 doors</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Coverage</span>
-                        <span class="prep-detail-value">Simple SKUs only</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Shipping (Door 1-3)</span>
+                        <span class="capacity-value">3 doors</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Operations</span>
-                        <span class="prep-detail-value">Poly bag, label, QC</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Receiving Staging</span>
+                        <span class="capacity-value">100 positions</span>
                     </div>
-                    <div class="prep-detail-item">
-                        <span class="prep-detail-label">Use Case</span>
-                        <span class="prep-detail-value">Non-liquid SKUs</span>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Shipping Staging</span>
+                        <span class="capacity-value">100 positions</span>
                     </div>
-                    <div class="info-box" style="background: rgba(52, 152, 219, 0.1);">
-                        <div style="font-size: 11px; font-weight: 700; color: #3498db;">
-                            MINIMAL VOLUME
-                        </div>
-                        <div style="font-size: 10px; margin-top: 5px; opacity: 0.8;">
-                            Most SKUs require FBA sleeve prep
-                        </div>
+                    <div class="capacity-metric">
+                        <span class="capacity-label">Weekly Truck Capacity</span>
+                        <span class="capacity-value">12 trucks</span>
+                    </div>
+                    <div class="capacity-metric" style="border-bottom: none; padding-top: 15px;">
+                        <span class="capacity-label">Square Footage</span>
+                        <span class="capacity-value">12,500 sq ft</span>
                     </div>
                 </div>
             </div>
